@@ -87,7 +87,7 @@ The application uses environment variables for database connectivity:
 ## Project Structure
 
 ```
-goit-cs-hw-02/
+simple_fastapi-setup/
 ├── docker-compose.yaml          # Container orchestration
 ├── fast-api/                    # FastAPI application
 │   ├── Dockerfile              # Application container
