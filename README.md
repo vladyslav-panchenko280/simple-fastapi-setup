@@ -1,58 +1,99 @@
-# GoIT CS HW-02
+# FastAPI Web Application with PostgreSQL and Website Monitoring
 
-## Завдання 1: Bash скрипт для моніторингу доступності вебсайтів
+This project demonstrates a containerized FastAPI web application integrated with PostgreSQL database and automated website availability monitoring system. The implementation showcases modern DevOps practices including containerization, environment variable configuration, and automated health checking.
 
-### Опис
-Скрипт `website_availability_healthcheck.sh` перевіряє доступність списку вебсайтів та логує результати.
+## Project Overview
 
-### Використання
+The application consists of three main components:
+- FastAPI Web Service: A Python-based REST API with database connectivity
+- PostgreSQL Database: Containerized relational database for data persistence
+- Website Monitoring Script: Bash-based automated health checking system for external websites
+
+## Tech Stack
+
+- Backend: FastAPI (Python web framework)
+- Database: PostgreSQL 16
+- ORM: SQLAlchemy
+- Containerization: Docker & Docker Compose
+- Web Server: Uvicorn (ASGI server)
+- Monitoring: Bash scripting with curl
+- Configuration: Environment variables
+
+## Architecture
+
+The project utilizes Docker Compose for orchestration, providing a complete development and deployment environment. The FastAPI application connects to PostgreSQL through environment variables, ensuring configuration flexibility and security.
+
+## Prerequisites
+
+- Docker and Docker Compose installed on your system
+- Git for repository cloning
+
+## Installation and Deployment
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-name>
+```
+
+2. Start the application stack:
+```bash
+docker-compose up --build
+```
+
+3. Access the services:
+   - **FastAPI Application**: http://localhost:8000
+   - **PostgreSQL Database**: localhost:5432
+
+4. Stop the services:
+```bash
+docker-compose down
+```
+
+## Website Monitoring System
+
+The project includes an automated website availability monitoring script that performs HTTP health checks on a predefined list of websites and logs the results.
+
+### Usage
 
 ```bash
 chmod +x scripts/website_availability_healthcheck.sh
 ./scripts/website_availability_healthcheck.sh
 ```
 
-### Що робить скрипт
+### Functionality
 
-- Перевіряє HTTP статус кожного сайту зі списку
-- Логує результати у файл `website_status.log`
-- Виводить повідомлення про завершення
+- Performs HTTP status code validation for each target website
+- Logs results to `website_status.log` file
+- Provides completion status notification
 
-### Приклад виводу в лог
+### Sample Output
 
 ```
 <https://google.com> is UP
 <https://facebook.com> is UP
-<https://whyicannotfindit.com> is DOWN
+<https://example.org> is DOWN
 ```
 
-## Завдання 2: Docker Compose з FastAPI та PostgreSQL
+## Configuration
 
-### Опис
-Створення Docker Compose конфігурації для запуску FastAPI додатку з PostgreSQL базою даних.
+The application uses environment variables for database connectivity:
 
-### Запуск проекту
+- `DATABASE_USER`: PostgreSQL username (default: postgres)
+- `DATABASE_PASSWORD`: PostgreSQL password (default: 567234)
+- `DATABASE_HOST`: Database hostname (default: postgres_db)
+- `DATABASE_NAME`: Database name (default: hw02)
 
-1. Переконайтеся, що Docker і Docker Compose встановлені на вашій системі
+## Project Structure
 
-2. Клонуйте репозиторій:
-```bash
-git clone <repository-url>
-cd goit-cs-hw-02
 ```
-
-3. Запустіть контейнери:
-```bash
-docker-compose up --build
+goit-cs-hw-02/
+├── docker-compose.yaml          # Container orchestration
+├── fast-api/                    # FastAPI application
+│   ├── Dockerfile              # Application container
+│   ├── main.py                 # Application entry point
+│   ├── conf/db.py              # Database configuration
+│   └── requirements.txt        # Python dependencies
+└── scripts/                     # Monitoring utilities
+    └── website_availability_healthcheck.sh
 ```
-
-4. Додаток буде доступний за адресою:
-   - FastAPI: http://localhost:8000
-   - PostgreSQL: http://localhost:5432
-
-5. Для зупинки контейнерів:
-```bash
-docker-compose down
-```
-
-
